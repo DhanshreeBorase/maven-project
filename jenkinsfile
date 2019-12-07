@@ -5,7 +5,10 @@ pipeline
 		{
 			stage('git clone')
 			{
-				git 'https://github.com/DhanshreeBorase/maven-project.git'
+				steps
+				{
+					git 'https://github.com/DhanshreeBorase/maven-project.git'
+				}
 			}
 		}
 }

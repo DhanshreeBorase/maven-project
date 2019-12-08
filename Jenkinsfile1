@@ -20,13 +20,23 @@ pipeline
 					}
 				}
 			}
+			stage ('complile my project')
+			{
+				steps 
+				{
+					withMaven(jdk: 'localJDK' , maven: 'localMaven')
+					{
+						sh 'mvn compile'
+					}
+				}
+			}
 			stage('copy artifact')
 			{
 				steps
 				{
 					sshagent ('admin') 
             				{
-                				sh 'scp -o StrictHostKeyChecking=no */target/*.war ec2-user@172.31.24.177:/usr/share/tomcat/webapps'
+                				sh 'scp -o StrictHostKeyChecking=no */target/*.war ec2-user@172.31.24.177:/var/lib/tomcat/webapps'
             				}
 				}
 			}

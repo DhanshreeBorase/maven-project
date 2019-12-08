@@ -10,7 +10,7 @@ pipeline
 					git 'https://github.com/DhanshreeBorase/maven-project.git'
 				}
 			}
-			stage('git clone')
+			stage('copy artifact')
 			{
 				steps
 				{

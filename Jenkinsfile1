@@ -1,0 +1,24 @@
+pipeline
+{
+	agent any 
+	stages
+		{
+			stage('git clone')
+			{
+				steps
+				{
+					git 'https://github.com/DhanshreeBorase/maven-project.git'
+				}
+			}
+			stage ('build my project')
+			{
+				steps 
+				{
+					sshagent ('admin') 
+            {
+                sh 'scp -o StrictHostKeyChecking=no */target/*.war ec2-user@172.31.24.177:/usr/share/tomcat/webapps
+            }
+				}
+			}
+		}
+}

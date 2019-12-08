@@ -16,16 +16,6 @@ pipeline
 				{
 					withMaven(jdk: 'localJDK' , maven: 'localMaven')
 					{
-						sh 'mvn package'
-					}
-				}
-			}
-			stage ('install my project')
-			{
-				steps 
-				{
-					withMaven(jdk: 'localJDK' , maven: 'localMaven')
-					{
 						sh 'mvn install'
 					}
 				}

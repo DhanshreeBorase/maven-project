@@ -10,13 +10,23 @@ pipeline
 					git 'https://github.com/DhanshreeBorase/maven-project.git'
 				}
 			}
-			stage ('build my project')
+			stage ('install my project')
 			{
 				steps 
 				{
 					withMaven(jdk: 'localJDK' , maven: 'localMaven')
 					{
-						sh 'mvn build'
+						sh 'mvn package'
+					}
+				}
+			}
+			stage ('install my project')
+			{
+				steps 
+				{
+					withMaven(jdk: 'localJDK' , maven: 'localMaven')
+					{
+						sh 'mvn install'
 					}
 				}
 			}
@@ -34,7 +44,7 @@ pipeline
 			{
 				steps
 				{
-					sshagent ('admin') 
+					sshagent ('tomcat') 
             				{
                 				sh 'scp -o StrictHostKeyChecking=no */target/*.war ec2-user@172.31.24.177:/var/lib/tomcat/webapps'
             				}

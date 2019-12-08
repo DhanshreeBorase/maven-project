@@ -10,6 +10,16 @@ pipeline
 					git 'https://github.com/DhanshreeBorase/maven-project.git'
 				}
 			}
+			stage ('build my project')
+			{
+				steps 
+				{
+					withMaven(jdk: 'localJDK' , maven: 'localMaven')
+					{
+						sh 'mvn build'
+					}
+				}
+			}
 			stage('copy artifact')
 			{
 				steps

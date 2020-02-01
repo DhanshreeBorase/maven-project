@@ -1,7 +1,7 @@
     
 node{
     stage ('scm checkout') {
-	git ('https://github.com/prakashk0301/maven-project')
+	git ('https://github.com/DhanshreeBorase/maven-project/')
 	}
 	
 	stage('Checkout to different branch') {
@@ -17,7 +17,7 @@ node{
 	stage ('docker image build') {
 	   sh 'pwd'
 	   sh 'ls -a'
-           sh 'docker build -t pkw0301/prakash-app:1.0.0 .'
+           sh 'docker build -t admin/dhanshree-app:1.0.0 .'
 	}
 
  }

@@ -23,6 +23,24 @@ node{
 	   sh 'ls -a'
            sh 'docker build -t admin/dhanshree-app:1.0.0 .'
 	}
+	stage ('Push Docker image to DockerHub') 
+	{
+	  withCredentials([string(credentialsId: 'dockerhubaccount', variable: 'dockerhubaccount')]) {
+	     sh "docker login -u admin -p ${dockerhubaccount}"
+	     }
+	   sh 'docker push admin/my-app:1.0.0'
+	
+        }
+	stage('Remove Old Containers'){
+           sshagent(['deploy-to-dev-docker']) {
+             try{
+               def sshCmd = 'ssh -o StrictHostKeyChecking=no ec2-user@3.134.86.215'
+               def dockerRM = 'docker rm -f my-tomcat-app'
+                 sh "${sshCmd} ${dockerRM}"
+                 }catch(error){
+
+      }
+	
 	stage ('Deploy to Dev') 
 	{
 	   def dockerRun = 'docker run -d -p 9000:8080 --name my-tomcat-app admin/dhanshree-app:1.0.0'
